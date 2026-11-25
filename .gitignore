@@ -1,0 +1,11 @@
+.venv/
+.env
+__pycache__/
+*.py[cod]
+.DS_Store
+data/*
+!data/.gitkeep
+!data/fuel-prices-for-be-assessment.csv
+!data/places.csv
+!data/stations.csv
+!data/stations-unmatched.csv

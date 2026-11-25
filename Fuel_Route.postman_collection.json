@@ -1,0 +1,128 @@
+{
+  "info": {
+    "name": "Fuel Route Planner",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Dallas to Denver",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/route/",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"start\": \"Dallas, TX\",\n  \"finish\": \"Denver, CO\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('Every modeled leg fits in the tank', () => {",
+              "  const plan = pm.response.json();",
+              "  pm.expect(plan.map.type).to.eql('FeatureCollection');",
+              "  pm.expect(plan.summary.leg_distances_miles.every(miles => miles <= 500)).to.be.true;",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Los Angeles to New York",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/route/",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"start\": \"Los Angeles, CA\",\n  \"finish\": \"New York, NY\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('Every modeled leg fits in the tank', () => {",
+              "  const plan = pm.response.json();",
+              "  pm.expect(plan.map.type).to.eql('FeatureCollection');",
+              "  pm.expect(plan.summary.leg_distances_miles.every(miles => miles <= 500)).to.be.true;",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Boston to Providence",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/route/",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"start\": \"Boston, MA\",\n  \"finish\": \"Providence, RI\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "pm.test('Every modeled leg fits in the tank', () => {",
+              "  const plan = pm.response.json();",
+              "  pm.expect(plan.map.type).to.eql('FeatureCollection');",
+              "  pm.expect(plan.summary.leg_distances_miles.every(miles => miles <= 500)).to.be.true;",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
